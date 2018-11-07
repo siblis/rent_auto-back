@@ -18,7 +18,7 @@ port        ENV.fetch('PORT') { 3000 }
 environment ENV.fetch('RAILS_ENV') { 'development' }
 
 # Unix socket bind
-bind        "unix://#{Rails.root}/tmp/sockets/server.sock"
+bind        "unix://#{Rails.root}/tmp/sockets/server.socket"
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
