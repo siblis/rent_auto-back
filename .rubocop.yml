@@ -1,0 +1,16 @@
+Rails:
+  Enabled: true
+
+# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
+# URISchemes: http, https
+# 80 как то мало.
+Metrics/LineLength:
+  Max: 132
+
+# Пока не знаю что с этим делать и стоит ли.
+Style/MixinUsage:
+  Exclude:
+  - 'bin/setup'
+  - 'bin/update'
+
+inherit_from: .rubocop_todo.yml
