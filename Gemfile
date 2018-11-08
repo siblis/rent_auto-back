@@ -35,7 +35,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # BDD for Ruby
-  gem 'rspec', '~> 3.8'
+  gem 'rspec-rails', '~> 3.8'
+  #gem 'rspec', '~> 3.8'
   # Automatic Ruby code style checking tool. Aims to enforce the community-driven Ruby Style Guide.
   gem 'rubocop', '~> 0.60.0', require: false
 end
