@@ -19,7 +19,9 @@ stdout_redirect "#{Rails.root}/log/puma.stdout.log", "#{Rails.root}/log/puma.std
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-#port        ENV.fetch('PORT') { 3000 }
+if Rails.env.development?
+  port        ENV.fetch('PORT') { 3000 }
+end
 
 # Unix socket bind
 bind        "unix://#{Rails.root}/tmp/sockets/puma.socket"

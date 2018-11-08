@@ -1,0 +1,8 @@
+# options:  --no-stylesheets --no-scaffold-stylesheet --no-javascripts
+rails generate scaffold status code:string name:string note:text -p
+rails generate scaffold country code:string name:string note:text -p
+rails generate scaffold state code:string name:string country:references note:text -p
+rails generate scaffold region code:string name:string state:references country:references note:text -p
+rails generate scaffold locality code:string name:string status:references region:references state:references country:references note:text -p
+rails generate scaffold brand code:string name:string note:text -p
+rails generate scaffold manufacturer code:string name:string brand:references note:text
