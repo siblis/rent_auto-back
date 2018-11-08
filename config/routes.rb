@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :manufactures
+  resources :models
+  resources :body_types
+  resources :bodies
+  resources :trunks
+  resources :trunk_types
   resources :localities
   resources :statuses
   resources :cities

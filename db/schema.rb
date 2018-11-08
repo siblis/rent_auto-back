@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_164236) do
+ActiveRecord::Schema.define(version: 2018_11_08_223557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "body_types", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "brands", force: :cascade do |t|
     t.string "code"
@@ -47,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_11_08_164236) do
     t.index ["status_id"], name: "index_localities_on_status_id"
   end
 
-  create_table "manufacturers", force: :cascade do |t|
+  create_table "manufactures", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.bigint "brand_id"
@@ -55,8 +63,22 @@ ActiveRecord::Schema.define(version: 2018_11_08_164236) do
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["brand_id"], name: "index_manufacturers_on_brand_id"
-    t.index ["country_id"], name: "index_manufacturers_on_country_id"
+    t.index ["brand_id"], name: "index_manufactures_on_brand_id"
+    t.index ["country_id"], name: "index_manufactures_on_country_id"
+  end
+
+  create_table "models", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "brand_id"
+    t.bigint "manufacture_id"
+    t.bigint "body_type_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["body_type_id"], name: "index_models_on_body_type_id"
+    t.index ["brand_id"], name: "index_models_on_brand_id"
+    t.index ["manufacture_id"], name: "index_models_on_manufacture_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -89,13 +111,38 @@ ActiveRecord::Schema.define(version: 2018_11_08_164236) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "trunk_types", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trunks", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "trunk_type_id"
+    t.bigint "model_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_trunks_on_model_id"
+    t.index ["trunk_type_id"], name: "index_trunks_on_trunk_type_id"
+  end
+
   add_foreign_key "localities", "countries"
   add_foreign_key "localities", "regions"
   add_foreign_key "localities", "states"
   add_foreign_key "localities", "statuses"
-  add_foreign_key "manufacturers", "brands"
-  add_foreign_key "manufacturers", "countries"
+  add_foreign_key "manufactures", "brands"
+  add_foreign_key "manufactures", "countries"
+  add_foreign_key "models", "body_types"
+  add_foreign_key "models", "brands"
+  add_foreign_key "models", "manufactures"
   add_foreign_key "regions", "countries"
   add_foreign_key "regions", "states"
   add_foreign_key "states", "countries"
+  add_foreign_key "trunks", "models"
+  add_foreign_key "trunks", "trunk_types"
 end

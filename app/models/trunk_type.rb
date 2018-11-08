@@ -1,0 +1,2 @@
+class TrunkType < ApplicationRecord
+end

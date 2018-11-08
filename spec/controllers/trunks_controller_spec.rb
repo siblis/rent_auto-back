@@ -23,10 +23,10 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe ManufacturersController, type: :controller do
+RSpec.describe TrunksController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Manufacturer. As you add validations to Manufacturer, be sure to
+  # Trunk. As you add validations to Trunk, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -38,12 +38,12 @@ RSpec.describe ManufacturersController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # ManufacturersController. Be sure to keep this updated too.
+  # TrunksController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
     it "returns a success response" do
-      manufacturer = Manufacturer.create! valid_attributes
+      trunk = Trunk.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -51,33 +51,33 @@ RSpec.describe ManufacturersController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      manufacturer = Manufacturer.create! valid_attributes
-      get :show, params: {id: manufacturer.to_param}, session: valid_session
+      trunk = Trunk.create! valid_attributes
+      get :show, params: {id: trunk.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Manufacturer" do
+      it "creates a new Trunk" do
         expect {
-          post :create, params: {manufacturer: valid_attributes}, session: valid_session
-        }.to change(Manufacturer, :count).by(1)
+          post :create, params: {trunk: valid_attributes}, session: valid_session
+        }.to change(Trunk, :count).by(1)
       end
 
-      it "renders a JSON response with the new manufacturer" do
+      it "renders a JSON response with the new trunk" do
 
-        post :create, params: {manufacturer: valid_attributes}, session: valid_session
+        post :create, params: {trunk: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(manufacturer_url(Manufacturer.last))
+        expect(response.location).to eq(trunk_url(Trunk.last))
       end
     end
 
     context "with invalid params" do
-      it "renders a JSON response with errors for the new manufacturer" do
+      it "renders a JSON response with errors for the new trunk" do
 
-        post :create, params: {manufacturer: invalid_attributes}, session: valid_session
+        post :create, params: {trunk: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -90,27 +90,27 @@ RSpec.describe ManufacturersController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested manufacturer" do
-        manufacturer = Manufacturer.create! valid_attributes
-        put :update, params: {id: manufacturer.to_param, manufacturer: new_attributes}, session: valid_session
-        manufacturer.reload
+      it "updates the requested trunk" do
+        trunk = Trunk.create! valid_attributes
+        put :update, params: {id: trunk.to_param, trunk: new_attributes}, session: valid_session
+        trunk.reload
         skip("Add assertions for updated state")
       end
 
-      it "renders a JSON response with the manufacturer" do
-        manufacturer = Manufacturer.create! valid_attributes
+      it "renders a JSON response with the trunk" do
+        trunk = Trunk.create! valid_attributes
 
-        put :update, params: {id: manufacturer.to_param, manufacturer: valid_attributes}, session: valid_session
+        put :update, params: {id: trunk.to_param, trunk: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
     context "with invalid params" do
-      it "renders a JSON response with errors for the manufacturer" do
-        manufacturer = Manufacturer.create! valid_attributes
+      it "renders a JSON response with errors for the trunk" do
+        trunk = Trunk.create! valid_attributes
 
-        put :update, params: {id: manufacturer.to_param, manufacturer: invalid_attributes}, session: valid_session
+        put :update, params: {id: trunk.to_param, trunk: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -118,11 +118,11 @@ RSpec.describe ManufacturersController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested manufacturer" do
-      manufacturer = Manufacturer.create! valid_attributes
+    it "destroys the requested trunk" do
+      trunk = Trunk.create! valid_attributes
       expect {
-        delete :destroy, params: {id: manufacturer.to_param}, session: valid_session
-      }.to change(Manufacturer, :count).by(-1)
+        delete :destroy, params: {id: trunk.to_param}, session: valid_session
+      }.to change(Trunk, :count).by(-1)
     end
   end
 

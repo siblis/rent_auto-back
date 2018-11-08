@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Manufacturers", type: :request do
-  describe "GET /manufacturers" do
+RSpec.describe "TrunkTypes", type: :request do
+  describe "GET /trunk_types" do
     it "works! (now write some real specs)" do
-      get manufacturers_path
+      get trunk_types_path
       expect(response).to have_http_status(200)
     end
   end

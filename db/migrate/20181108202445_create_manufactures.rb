@@ -1,6 +1,6 @@
-class CreateManufacturers < ActiveRecord::Migration[5.2]
+class CreateManufactures < ActiveRecord::Migration[5.2]
   def change
-    create_table :manufacturers do |t|
+    create_table :manufactures do |t|
       t.string :code
       t.string :name
       t.references :brand, foreign_key: true
