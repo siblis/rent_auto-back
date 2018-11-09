@@ -70,9 +70,19 @@ ActiveRecord::Schema.define(version: 2018_11_08_223557) do
   create_table "models", force: :cascade do |t|
     t.string "code"
     t.string "name"
+    t.boolean "active"
     t.bigint "brand_id"
     t.bigint "manufacture_id"
     t.bigint "body_type_id"
+    t.string "door_count"
+    t.string "seat_count"
+    t.string "style"
+    t.string "transmission"
+    t.string "drive_type"
+    t.string "fuel_type"
+    t.string "engine"
+    t.float "engine_volume"
+    t.string "options", array: true
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

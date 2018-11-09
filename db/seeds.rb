@@ -57,7 +57,7 @@ print ' - справочник типов кузовов автомобилей'
 seeds = BODY_TYPES.map do |type|
   print '.'
   {
-    code: type[0..2].downcase,
+    code: type.gsub(/(\W)[аеёийоуъыьэюя]/,'\1')[0..2].downcase,
     name: type,
     note: type.capitalize
   }
@@ -175,6 +175,15 @@ if Rails.env.development?
       brand: brands.sample,
       manufacture: manufactures.sample,
       body_type: body_types.sample,
+      door_count: rand(2..7),
+      seat_count: rand(2..7),
+      style: Faker::Vehicle.style,
+      transmission: Faker::Vehicle.transmission,
+      drive_type: Faker::Vehicle.drive_type,
+      fuel_type: Faker::Vehicle.fuel_type,
+      engine: Faker::Vehicle.engine,
+      engine_volume: rand(10..50).to_f/10,
+      options: Faker::Vehicle.car_options,
       note: company.catch_phrase
     }
   end
