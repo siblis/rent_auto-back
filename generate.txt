@@ -1,0 +1,16 @@
+# options:  --no-stylesheets --no-scaffold-stylesheet --no-javascripts
+rails g scaffold status code:string name:string note:text -p
+rails g scaffold country code:string name:string note:text -p
+rails g scaffold state code:string name:string country:references note:text -p
+rails g scaffold region code:string name:string state:references country:references note:text -p
+rails g scaffold locality code:string name:string status:references region:references state:references country:references note:text -p
+
+rails g scaffold brand code:string name:string note:text -p
+rails g scaffold manufacture code:string name:string brand:references country:references note:text -p
+
+rails g scaffold body_type code:string name:string note:text -p
+
+rails g scaffold model code:string name:string brand:references manufacture:references body_type:references note:text -p
+
+rails g scaffold trunk_type code:string name:string note:text -p
+rails g scaffold trunk code:string name:string trunk_type:references model:references note:text -p

@@ -11,8 +11,12 @@ gem 'rails', '~> 5.2.1'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+# gem 'jbuilder', '~> 2.5'
+# ActiveModel::Serializers allows you to generate your JSON in an object-oriented and convention-driven manner.
+gem 'active_model_serializers', '~> 0.10.8'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -26,7 +30,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors', '~> 1.0', '>= 1.0.2', :require => 'rack/cors'
 
 # Autoload dotenv in Rails.
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
@@ -36,9 +40,17 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # BDD for Ruby
   gem 'rspec-rails', '~> 3.8'
-  #gem 'rspec', '~> 3.8'
+  # gem 'rspec', '~> 3.8'
   # Automatic Ruby code style checking tool. Aims to enforce the community-driven Ruby Style Guide.
-  gem 'rubocop', '~> 0.60.0', require: false
+  gem 'rubocop', require: false
+  # Faker is used to easily generate fake data: names, addresses, phone numbers, etc.
+  gem 'faker', require: false
+  gem 'ffaker', require: false
+  # Faker russian specific values. INN, OKPO, OGRN et.c.
+  # (пока нет генерации паспортов он для нас беполезен)
+  # gem 'faker-russian'
+  # Great Ruby dubugging companion: pretty print Ruby objects to visualize their structure.
+  gem 'awesome_print'
 end
 
 group :development do
