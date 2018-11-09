@@ -57,7 +57,7 @@ print ' - справочник типов кузовов автомобилей'
 seeds = BODY_TYPES.map do |type|
   print '.'
   {
-    code: type.gsub(/(\W)[аеёийоуъыьэюя]/,'\1')[0..2].downcase,
+    code: type.downcase.gsub(/(\W)[аеёийоуъыьэюя]/,'\1')[0..2],
     name: type,
     note: type.capitalize
   }

@@ -3,10 +3,10 @@ class CreateModels < ActiveRecord::Migration[5.2]
     create_table :models do |t|
       t.string :code
       t.string :name
-      t.boolean :active
       t.references :brand, foreign_key: true
       t.references :manufacture, foreign_key: true
       t.references :body_type, foreign_key: true
+      t.boolean :active, default: true
       t.string :door_count
       t.string :seat_count
       t.string :style

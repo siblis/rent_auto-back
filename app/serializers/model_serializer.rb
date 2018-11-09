@@ -1,5 +1,5 @@
 class ModelSerializer < ActiveModel::Serializer
-  attributes  :id, :code, :name, :door_count, :seat_count, :style, :transmission,
+  attributes  :id, :code, :name, :active, :door_count, :seat_count, :style, :transmission,
               :drive_type, :fuel_type, :engine, :engine_volume, :options, :note
   has_one :brand
   has_one :manufacture
