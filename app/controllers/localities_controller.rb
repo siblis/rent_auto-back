@@ -1,5 +1,6 @@
+# app/controller/localities_controller.rb
 class LocalitiesController < ApplicationController
-  before_action :set_locality, only: [:show, :update, :destroy]
+  before_action :set_locality, only: %i[show update destroy]
 
   # GET /localities
   def index
@@ -39,13 +40,14 @@ class LocalitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_locality
-      @locality = Locality.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def locality_params
-      params.require(:locality).permit(:code, :name, :status_id, :region_id, :state_id, :country_id, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_locality
+    @locality = Locality.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def locality_params
+    params.require(:locality).permit(:code, :name, :status_id, :region_id, :state_id, :country_id, :note)
+  end
 end

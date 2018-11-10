@@ -1,3 +1,4 @@
+# app/models/locality.rb
 class Locality < ApplicationRecord
   belongs_to :status
   belongs_to :region

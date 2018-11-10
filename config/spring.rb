@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# config/spring.rb
 %w[
   .ruby-version
   .env

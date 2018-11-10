@@ -1,5 +1,6 @@
+# app/controller/states_controller.rb
 class StatesController < ApplicationController
-  before_action :set_state, only: [:show, :update, :destroy]
+  before_action :set_state, only: %i[show update destroy]
 
   # GET /states
   def index
@@ -39,13 +40,14 @@ class StatesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_state
-      @state = State.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def state_params
-      params.require(:state).permit(:code, :name, :country_id, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_state
+    @state = State.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def state_params
+    params.require(:state).permit(:code, :name, :country_id, :note)
+  end
 end

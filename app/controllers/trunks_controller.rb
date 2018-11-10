@@ -1,5 +1,6 @@
+# app/controller/trunk_controller.rb
 class TrunksController < ApplicationController
-  before_action :set_trunk, only: [:show, :update, :destroy]
+  before_action :set_trunk, only: %i[show update destroy]
 
   # GET /trunks
   def index
@@ -39,13 +40,14 @@ class TrunksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trunk
-      @trunk = Trunk.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def trunk_params
-      params.require(:trunk).permit(:code, :name, :trunk_type_id, :model_id, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trunk
+    @trunk = Trunk.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def trunk_params
+    params.require(:trunk).permit(:code, :name, :trunk_type_id, :model_id, :note)
+  end
 end

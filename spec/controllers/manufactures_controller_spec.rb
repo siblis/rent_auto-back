@@ -24,7 +24,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe ManufacturesController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Manufacture. As you add validations to Manufacture, be sure to
   # adjust the attributes here as well.
@@ -52,7 +51,7 @@ RSpec.describe ManufacturesController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       manufacture = Manufacture.create! valid_attributes
-      get :show, params: {id: manufacture.to_param}, session: valid_session
+      get :show, params: { id: manufacture.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -61,13 +60,12 @@ RSpec.describe ManufacturesController, type: :controller do
     context "with valid params" do
       it "creates a new Manufacture" do
         expect {
-          post :create, params: {manufacture: valid_attributes}, session: valid_session
+          post :create, params: { manufacture: valid_attributes }, session: valid_session
         }.to change(Manufacture, :count).by(1)
       end
 
       it "renders a JSON response with the new manufacture" do
-
-        post :create, params: {manufacture: valid_attributes}, session: valid_session
+        post :create, params: { manufacture: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(manufacture_url(Manufacture.last))
@@ -76,8 +74,7 @@ RSpec.describe ManufacturesController, type: :controller do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the new manufacture" do
-
-        post :create, params: {manufacture: invalid_attributes}, session: valid_session
+        post :create, params: { manufacture: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -92,7 +89,7 @@ RSpec.describe ManufacturesController, type: :controller do
 
       it "updates the requested manufacture" do
         manufacture = Manufacture.create! valid_attributes
-        put :update, params: {id: manufacture.to_param, manufacture: new_attributes}, session: valid_session
+        put :update, params: { id: manufacture.to_param, manufacture: new_attributes }, session: valid_session
         manufacture.reload
         skip("Add assertions for updated state")
       end
@@ -100,7 +97,7 @@ RSpec.describe ManufacturesController, type: :controller do
       it "renders a JSON response with the manufacture" do
         manufacture = Manufacture.create! valid_attributes
 
-        put :update, params: {id: manufacture.to_param, manufacture: valid_attributes}, session: valid_session
+        put :update, params: { id: manufacture.to_param, manufacture: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -110,7 +107,7 @@ RSpec.describe ManufacturesController, type: :controller do
       it "renders a JSON response with errors for the manufacture" do
         manufacture = Manufacture.create! valid_attributes
 
-        put :update, params: {id: manufacture.to_param, manufacture: invalid_attributes}, session: valid_session
+        put :update, params: { id: manufacture.to_param, manufacture: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -121,9 +118,8 @@ RSpec.describe ManufacturesController, type: :controller do
     it "destroys the requested manufacture" do
       manufacture = Manufacture.create! valid_attributes
       expect {
-        delete :destroy, params: {id: manufacture.to_param}, session: valid_session
+        delete :destroy, params: { id: manufacture.to_param }, session: valid_session
       }.to change(Manufacture, :count).by(-1)
     end
   end
-
 end

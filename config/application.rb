@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# config/application.rb
 require_relative 'boot'
 
 require 'rails'

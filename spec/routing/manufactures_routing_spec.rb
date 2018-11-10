@@ -10,7 +10,6 @@ RSpec.describe ManufacturesController, type: :routing do
       expect(:get => "/manufactures/1").to route_to("manufactures#show", :id => "1")
     end
 
-
     it "routes to #create" do
       expect(:post => "/manufactures").to route_to("manufactures#create")
     end

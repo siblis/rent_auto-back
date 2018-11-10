@@ -1,5 +1,6 @@
+# app/controller/trunk_types_controller.rb
 class TrunkTypesController < ApplicationController
-  before_action :set_trunk_type, only: [:show, :update, :destroy]
+  before_action :set_trunk_type, only: %i[show update destroy]
 
   # GET /trunk_types
   def index
@@ -39,13 +40,14 @@ class TrunkTypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trunk_type
-      @trunk_type = TrunkType.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def trunk_type_params
-      params.require(:trunk_type).permit(:code, :name, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trunk_type
+    @trunk_type = TrunkType.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def trunk_type_params
+    params.require(:trunk_type).permit(:code, :name, :note)
+  end
 end

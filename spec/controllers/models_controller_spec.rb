@@ -24,7 +24,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe ModelsController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Model. As you add validations to Model, be sure to
   # adjust the attributes here as well.
@@ -52,7 +51,7 @@ RSpec.describe ModelsController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       model = Model.create! valid_attributes
-      get :show, params: {id: model.to_param}, session: valid_session
+      get :show, params: { id: model.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -61,13 +60,12 @@ RSpec.describe ModelsController, type: :controller do
     context "with valid params" do
       it "creates a new Model" do
         expect {
-          post :create, params: {model: valid_attributes}, session: valid_session
+          post :create, params: { model: valid_attributes }, session: valid_session
         }.to change(Model, :count).by(1)
       end
 
       it "renders a JSON response with the new model" do
-
-        post :create, params: {model: valid_attributes}, session: valid_session
+        post :create, params: { model: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(model_url(Model.last))
@@ -76,8 +74,7 @@ RSpec.describe ModelsController, type: :controller do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the new model" do
-
-        post :create, params: {model: invalid_attributes}, session: valid_session
+        post :create, params: { model: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -92,7 +89,7 @@ RSpec.describe ModelsController, type: :controller do
 
       it "updates the requested model" do
         model = Model.create! valid_attributes
-        put :update, params: {id: model.to_param, model: new_attributes}, session: valid_session
+        put :update, params: { id: model.to_param, model: new_attributes }, session: valid_session
         model.reload
         skip("Add assertions for updated state")
       end
@@ -100,7 +97,7 @@ RSpec.describe ModelsController, type: :controller do
       it "renders a JSON response with the model" do
         model = Model.create! valid_attributes
 
-        put :update, params: {id: model.to_param, model: valid_attributes}, session: valid_session
+        put :update, params: { id: model.to_param, model: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -110,7 +107,7 @@ RSpec.describe ModelsController, type: :controller do
       it "renders a JSON response with errors for the model" do
         model = Model.create! valid_attributes
 
-        put :update, params: {id: model.to_param, model: invalid_attributes}, session: valid_session
+        put :update, params: { id: model.to_param, model: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -121,9 +118,8 @@ RSpec.describe ModelsController, type: :controller do
     it "destroys the requested model" do
       model = Model.create! valid_attributes
       expect {
-        delete :destroy, params: {id: model.to_param}, session: valid_session
+        delete :destroy, params: { id: model.to_param }, session: valid_session
       }.to change(Model, :count).by(-1)
     end
   end
-
 end

@@ -24,7 +24,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe LocalitiesController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Locality. As you add validations to Locality, be sure to
   # adjust the attributes here as well.
@@ -52,7 +51,7 @@ RSpec.describe LocalitiesController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       locality = Locality.create! valid_attributes
-      get :show, params: {id: locality.to_param}, session: valid_session
+      get :show, params: { id: locality.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -61,13 +60,12 @@ RSpec.describe LocalitiesController, type: :controller do
     context "with valid params" do
       it "creates a new Locality" do
         expect {
-          post :create, params: {locality: valid_attributes}, session: valid_session
+          post :create, params: { locality: valid_attributes }, session: valid_session
         }.to change(Locality, :count).by(1)
       end
 
       it "renders a JSON response with the new locality" do
-
-        post :create, params: {locality: valid_attributes}, session: valid_session
+        post :create, params: { locality: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(locality_url(Locality.last))
@@ -76,8 +74,7 @@ RSpec.describe LocalitiesController, type: :controller do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the new locality" do
-
-        post :create, params: {locality: invalid_attributes}, session: valid_session
+        post :create, params: { locality: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -92,7 +89,7 @@ RSpec.describe LocalitiesController, type: :controller do
 
       it "updates the requested locality" do
         locality = Locality.create! valid_attributes
-        put :update, params: {id: locality.to_param, locality: new_attributes}, session: valid_session
+        put :update, params: { id: locality.to_param, locality: new_attributes }, session: valid_session
         locality.reload
         skip("Add assertions for updated state")
       end
@@ -100,7 +97,7 @@ RSpec.describe LocalitiesController, type: :controller do
       it "renders a JSON response with the locality" do
         locality = Locality.create! valid_attributes
 
-        put :update, params: {id: locality.to_param, locality: valid_attributes}, session: valid_session
+        put :update, params: { id: locality.to_param, locality: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -110,7 +107,7 @@ RSpec.describe LocalitiesController, type: :controller do
       it "renders a JSON response with errors for the locality" do
         locality = Locality.create! valid_attributes
 
-        put :update, params: {id: locality.to_param, locality: invalid_attributes}, session: valid_session
+        put :update, params: { id: locality.to_param, locality: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -121,9 +118,8 @@ RSpec.describe LocalitiesController, type: :controller do
     it "destroys the requested locality" do
       locality = Locality.create! valid_attributes
       expect {
-        delete :destroy, params: {id: locality.to_param}, session: valid_session
+        delete :destroy, params: { id: locality.to_param }, session: valid_session
       }.to change(Locality, :count).by(-1)
     end
   end
-
 end

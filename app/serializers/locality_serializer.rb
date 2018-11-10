@@ -1,3 +1,4 @@
+# app/serializers/country_serializer.rb
 class LocalitySerializer < ActiveModel::Serializer
   attributes :id, :code, :name, :note
   has_one :status

@@ -1,5 +1,6 @@
+# app/controller/body_types_controller.rb
 class BodyTypesController < ApplicationController
-  before_action :set_body_type, only: [:show, :update, :destroy]
+  before_action :set_body_type, only: %i[show update destroy]
 
   # GET /body_types
   def index
@@ -39,13 +40,14 @@ class BodyTypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_body_type
-      @body_type = BodyType.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def body_type_params
-      params.require(:body_type).permit(:code, :name, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_body_type
+    @body_type = BodyType.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def body_type_params
+    params.require(:body_type).permit(:code, :name, :note)
+  end
 end

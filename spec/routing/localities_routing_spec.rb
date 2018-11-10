@@ -10,7 +10,6 @@ RSpec.describe LocalitiesController, type: :routing do
       expect(:get => "/localities/1").to route_to("localities#show", :id => "1")
     end
 
-
     it "routes to #create" do
       expect(:post => "/localities").to route_to("localities#create")
     end
