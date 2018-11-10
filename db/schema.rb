@@ -11,147 +11,148 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2018_11_08_223557) do
+
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'body_types', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "body_types", comment: "Справочник типов кузовов", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'brands', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "brands", comment: "Справочник марок автомобилей", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'countries', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "countries", comment: "Справочник стран", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'localities', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.bigint 'status_id'
-    t.bigint 'region_id'
-    t.bigint 'state_id'
-    t.bigint 'country_id'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['country_id'], name: 'index_localities_on_country_id'
-    t.index ['region_id'], name: 'index_localities_on_region_id'
-    t.index ['state_id'], name: 'index_localities_on_state_id'
-    t.index ['status_id'], name: 'index_localities_on_status_id'
+  create_table "localities", comment: "Справочник населенных пунктов", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "status_id"
+    t.bigint "region_id"
+    t.bigint "state_id"
+    t.bigint "country_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_localities_on_country_id"
+    t.index ["region_id"], name: "index_localities_on_region_id"
+    t.index ["state_id"], name: "index_localities_on_state_id"
+    t.index ["status_id"], name: "index_localities_on_status_id"
   end
 
-  create_table 'manufactures', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.bigint 'brand_id'
-    t.bigint 'country_id'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['brand_id'], name: 'index_manufactures_on_brand_id'
-    t.index ['country_id'], name: 'index_manufactures_on_country_id'
+  create_table "manufactures", comment: "Справочник производителей автомобилей", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "brand_id"
+    t.bigint "country_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_manufactures_on_brand_id"
+    t.index ["country_id"], name: "index_manufactures_on_country_id"
   end
 
-  create_table 'models', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.bigint 'brand_id'
-    t.bigint 'manufacture_id'
-    t.bigint 'body_type_id'
-    t.boolean 'active', default: true
-    t.string 'door_count'
-    t.string 'seat_count'
-    t.string 'style'
-    t.string 'transmission'
-    t.string 'drive_type'
-    t.string 'fuel_type'
-    t.string 'engine'
-    t.float 'engine_volume'
-    t.string 'options', array: true
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['body_type_id'], name: 'index_models_on_body_type_id'
-    t.index ['brand_id'], name: 'index_models_on_brand_id'
-    t.index ['manufacture_id'], name: 'index_models_on_manufacture_id'
+  create_table "models", comment: "Справочник моделей автомобилей", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "brand_id"
+    t.bigint "manufacture_id"
+    t.bigint "body_type_id"
+    t.boolean "active", default: true
+    t.string "door_count"
+    t.string "seat_count"
+    t.string "style"
+    t.string "transmission"
+    t.string "drive_type"
+    t.string "fuel_type"
+    t.string "engine"
+    t.float "engine_volume"
+    t.string "options", array: true
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["body_type_id"], name: "index_models_on_body_type_id"
+    t.index ["brand_id"], name: "index_models_on_brand_id"
+    t.index ["manufacture_id"], name: "index_models_on_manufacture_id"
   end
 
-  create_table 'regions', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.bigint 'state_id'
-    t.bigint 'country_id'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['country_id'], name: 'index_regions_on_country_id'
-    t.index ['state_id'], name: 'index_regions_on_state_id'
+  create_table "regions", comment: "Спраовчник областей", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "state_id"
+    t.bigint "country_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_regions_on_country_id"
+    t.index ["state_id"], name: "index_regions_on_state_id"
   end
 
-  create_table 'states', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.bigint 'country_id'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['country_id'], name: 'index_states_on_country_id'
+  create_table "states", comment: "Справочник округов", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "country_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_states_on_country_id"
   end
 
-  create_table 'statuses', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "statuses", comment: "Статусы нас.пунктов (город, село, деревня...)", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'trunk_types', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "trunk_types", comment: "Справочник типов багажников", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'trunks', force: :cascade do |t|
-    t.string 'code'
-    t.string 'name'
-    t.bigint 'trunk_type_id'
-    t.bigint 'model_id'
-    t.text 'note'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['model_id'], name: 'index_trunks_on_model_id'
-    t.index ['trunk_type_id'], name: 'index_trunks_on_trunk_type_id'
+  create_table "trunks", comment: "Справочник багажников", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "trunk_type_id"
+    t.bigint "model_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_trunks_on_model_id"
+    t.index ["trunk_type_id"], name: "index_trunks_on_trunk_type_id"
   end
 
-  add_foreign_key 'localities', 'countries'
-  add_foreign_key 'localities', 'regions'
-  add_foreign_key 'localities', 'states'
-  add_foreign_key 'localities', 'statuses'
-  add_foreign_key 'manufactures', 'brands'
-  add_foreign_key 'manufactures', 'countries'
-  add_foreign_key 'models', 'body_types'
-  add_foreign_key 'models', 'brands'
-  add_foreign_key 'models', 'manufactures'
-  add_foreign_key 'regions', 'countries'
-  add_foreign_key 'regions', 'states'
-  add_foreign_key 'states', 'countries'
-  add_foreign_key 'trunks', 'models'
-  add_foreign_key 'trunks', 'trunk_types'
+  add_foreign_key "localities", "countries"
+  add_foreign_key "localities", "regions"
+  add_foreign_key "localities", "states"
+  add_foreign_key "localities", "statuses"
+  add_foreign_key "manufactures", "brands"
+  add_foreign_key "manufactures", "countries"
+  add_foreign_key "models", "body_types"
+  add_foreign_key "models", "brands"
+  add_foreign_key "models", "manufactures"
+  add_foreign_key "regions", "countries"
+  add_foreign_key "regions", "states"
+  add_foreign_key "states", "countries"
+  add_foreign_key "trunks", "models"
+  add_foreign_key "trunks", "trunk_types"
 end
