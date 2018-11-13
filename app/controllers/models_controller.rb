@@ -1,4 +1,4 @@
-# app/controller/models_controller.rb
+# app/controllers/models_controller.rb
 class ModelsController < ApplicationController
   before_action :set_model, only: %i[show update destroy]
 

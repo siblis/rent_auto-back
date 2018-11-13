@@ -1,4 +1,4 @@
-# app/controller/trunk_types_controller.rb
+# app/controllers/trunk_types_controller.rb
 class TrunkTypesController < ApplicationController
   before_action :set_trunk_type, only: %i[show update destroy]
 

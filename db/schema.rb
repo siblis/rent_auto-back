@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_223557) do
+ActiveRecord::Schema.define(version: 2018_11_12_170127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "body_types", comment: "Справочник типов кузовов", force: :cascade do |t|
+  create_table "body_types", comment: "Справочник типов кузовов автомобилей", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.text "note"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 2018_11_08_223557) do
   create_table "countries", comment: "Справочник стран", force: :cascade do |t|
     t.string "code"
     t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "day_ranges", comment: "Справочник диапазонов дней аренды", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.integer "day_from"
+    t.integer "day_to"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -67,15 +77,24 @@ ActiveRecord::Schema.define(version: 2018_11_08_223557) do
     t.index ["country_id"], name: "index_manufactures_on_country_id"
   end
 
+  create_table "model_classes", comment: "Справочник классов моделей автомобилей", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "models", comment: "Справочник моделей автомобилей", force: :cascade do |t|
     t.string "code"
     t.string "name"
+    t.bigint "model_class_id"
     t.bigint "brand_id"
     t.bigint "manufacture_id"
     t.bigint "body_type_id"
     t.boolean "active", default: true
-    t.string "door_count"
-    t.string "seat_count"
+    t.integer "door_count"
+    t.integer "seat_count"
     t.string "style"
     t.string "transmission"
     t.string "drive_type"
@@ -89,6 +108,20 @@ ActiveRecord::Schema.define(version: 2018_11_08_223557) do
     t.index ["body_type_id"], name: "index_models_on_body_type_id"
     t.index ["brand_id"], name: "index_models_on_brand_id"
     t.index ["manufacture_id"], name: "index_models_on_manufacture_id"
+    t.index ["model_class_id"], name: "index_models_on_model_class_id"
+  end
+
+  create_table "range_rates", comment: "Связка коэффициентов и диапазонов дней", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "rental_rate_id"
+    t.bigint "day_range_id"
+    t.float "rate"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day_range_id"], name: "index_range_rates_on_day_range_id"
+    t.index ["rental_rate_id"], name: "index_range_rates_on_rental_rate_id"
   end
 
   create_table "regions", comment: "Спраовчник областей", force: :cascade do |t|
@@ -103,6 +136,67 @@ ActiveRecord::Schema.define(version: 2018_11_08_223557) do
     t.index ["state_id"], name: "index_regions_on_state_id"
   end
 
+  create_table "rental_plans", comment: "Справочник тарифных планов", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "model_id"
+    t.bigint "model_class_id"
+    t.bigint "rental_type_id"
+    t.bigint "rental_rate_id"
+    t.bigint "rental_price_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_class_id"], name: "index_rental_plans_on_model_class_id"
+    t.index ["model_id"], name: "index_rental_plans_on_model_id"
+    t.index ["rental_price_id"], name: "index_rental_plans_on_rental_price_id"
+    t.index ["rental_rate_id"], name: "index_rental_plans_on_rental_rate_id"
+    t.index ["rental_type_id"], name: "index_rental_plans_on_rental_type_id"
+  end
+
+  create_table "rental_prices", comment: "Справчник базовых цен для моделей (классов?)", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "model_id"
+    t.bigint "model_class_id"
+    t.decimal "day_price"
+    t.decimal "forfeit_price"
+    t.decimal "earnest"
+    t.decimal "km_price"
+    t.decimal "km_over_price"
+    t.decimal "weekend_price"
+    t.decimal "workweek_price"
+    t.decimal "workday_price"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_class_id"], name: "index_rental_prices_on_model_class_id"
+    t.index ["model_id"], name: "index_rental_prices_on_model_id"
+  end
+
+  create_table "rental_rates", comment: "Справочник коэффициентов тарифов", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "model_id"
+    t.bigint "rental_type_id"
+    t.float "workweek_rate"
+    t.float "weekend_rate"
+    t.float "hour_rate"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_rental_rates_on_model_id"
+    t.index ["rental_type_id"], name: "index_rental_rates_on_rental_type_id"
+  end
+
+  create_table "rental_types", comment: "Справочник типов тарифных планов", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "states", comment: "Справочник округов", force: :cascade do |t|
     t.string "code"
     t.string "name"
@@ -113,7 +207,7 @@ ActiveRecord::Schema.define(version: 2018_11_08_223557) do
     t.index ["country_id"], name: "index_states_on_country_id"
   end
 
-  create_table "statuses", comment: "Статусы нас.пунктов (город, село, деревня...)", force: :cascade do |t|
+  create_table "statuses", comment: "Справочник статусов нас.пунктов (город, село, деревня...)", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.text "note"
@@ -150,8 +244,19 @@ ActiveRecord::Schema.define(version: 2018_11_08_223557) do
   add_foreign_key "models", "body_types"
   add_foreign_key "models", "brands"
   add_foreign_key "models", "manufactures"
+  add_foreign_key "range_rates", "day_ranges"
+  add_foreign_key "range_rates", "rental_rates"
   add_foreign_key "regions", "countries"
   add_foreign_key "regions", "states"
+  add_foreign_key "rental_plans", "model_classes"
+  add_foreign_key "rental_plans", "models"
+  add_foreign_key "rental_plans", "rental_prices"
+  add_foreign_key "rental_plans", "rental_rates"
+  add_foreign_key "rental_plans", "rental_types"
+  add_foreign_key "rental_prices", "model_classes"
+  add_foreign_key "rental_prices", "models"
+  add_foreign_key "rental_rates", "models"
+  add_foreign_key "rental_rates", "rental_types"
   add_foreign_key "states", "countries"
   add_foreign_key "trunks", "models"
   add_foreign_key "trunks", "trunk_types"

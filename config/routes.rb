@@ -1,5 +1,13 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  resources :rental_plans
+  resources :rental_prices
+  resources :model_classes
+  resources :range_rates
+  resources :day_ranges
+  resources :rental_rates
+  resources :rental_types
+  resources :rental_classes
   resources :manufactures
   resources :models
   resources :body_types

@@ -1,4 +1,4 @@
-# app/controller/localities_controller.rb
+# app/controllers/localities_controller.rb
 class LocalitiesController < ApplicationController
   before_action :set_locality, only: %i[show update destroy]
 

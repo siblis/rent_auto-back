@@ -1,4 +1,4 @@
-# app/controller/brands_controller.rb
+# app/controllers/brands_controller.rb
 class BrandsController < ApplicationController
   before_action :set_brand, only: %i[show update destroy]
 

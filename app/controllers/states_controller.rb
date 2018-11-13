@@ -1,4 +1,4 @@
-# app/controller/states_controller.rb
+# app/controllers/states_controller.rb
 class StatesController < ApplicationController
   before_action :set_state, only: %i[show update destroy]
 

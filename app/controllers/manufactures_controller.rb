@@ -1,4 +1,4 @@
-# app/controller/manufactures_controller.rb
+# app/controllers/manufactures_controller.rb
 class ManufacturesController < ApplicationController
   before_action :set_manufacture, only: %i[show update destroy]
 

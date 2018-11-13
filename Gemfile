@@ -10,6 +10,14 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 
+# Ruby Internationalization and localization solution.
+gem 'i18n'
+gem 'rails-i18n'
+
+# This library provides integration of the money gem with Rails.
+gem 'money'
+gem 'money-rails'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # ActiveModel::Serializers allows you to generate your JSON in an object-oriented and convention-driven manner.

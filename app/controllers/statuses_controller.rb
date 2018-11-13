@@ -1,4 +1,4 @@
-# app/controller/statuses_controller.rb
+# app/controllers/statuses_controller.rb
 class StatusesController < ApplicationController
   before_action :set_status, only: %i[show update destroy]
 

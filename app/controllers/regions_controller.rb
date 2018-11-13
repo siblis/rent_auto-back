@@ -1,4 +1,4 @@
-# app/controller/regions_controller.rb
+# app/controllers/regions_controller.rb
 class RegionsController < ApplicationController
   before_action :set_region, only: %i[show update destroy]
 

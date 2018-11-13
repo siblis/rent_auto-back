@@ -1,4 +1,4 @@
-# app/controller/countries_controller.rb
+# app/controllers/countries_controller.rb
 class CountriesController < ApplicationController
   before_action :set_country, only: %i[show update destroy]
 

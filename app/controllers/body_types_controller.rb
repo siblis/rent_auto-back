@@ -1,4 +1,4 @@
-# app/controller/body_types_controller.rb
+# app/controllers/body_types_controller.rb
 class BodyTypesController < ApplicationController
   before_action :set_body_type, only: %i[show update destroy]
 
