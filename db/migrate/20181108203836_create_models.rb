@@ -17,6 +17,7 @@ class CreateModels < ActiveRecord::Migration[5.2]
       t.string :fuel_type
       t.string :engine
       t.float :engine_volume
+      t.string :specs, array: true
       t.string :options, array: true
       t.text :note
 

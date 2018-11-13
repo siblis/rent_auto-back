@@ -3,12 +3,12 @@ class RentalPrice < ApplicationRecord
   belongs_to :model
   belongs_to :model_class
 
-  attribute :day_price, :money
-  attribute :forfeit_price, :money
+  attribute :day, :money
+  attribute :forfeit, :money
   attribute :earnest, :money
-  attribute :km_price, :money
-  attribute :km_over_price, :money
-  attribute :weekend_price, :money
-  attribute :workweek_price, :money
-  attribute :workday_price, :money
+  attribute :km, :money
+  attribute :km_over, :money
+  attribute :weekend, :money
+  attribute :workweek, :money
+  attribute :workday, :money
 end

@@ -28,6 +28,8 @@ MODEL_CLASSES = %w[бизнес премиум эконом].freeze
 BODY_TYPES = %w[автобус внедорожник кабриолет кроссовер купе лимузин лифтбэк микроавтобус минивэн пикап
                 родстер седан стретч тарга универсал фургон хэтчбек].freeze
 
+TRUNK_TYPES = %w[жесткий\ бокс мягкий\ бокс велосипед корзина лодка лыжи/сноуборд специальный]
+
 RENTAL_TYPES = %w[основной демисезон зимний летний].freeze
 
 DAY_RANGES = [[1,3],[3,7],[7,15],[15,30],[30,nil]].freeze
@@ -81,6 +83,21 @@ end
 body_types = seeds.blank? ? BodyType.all : BodyType.create!(seeds)
 puts
 
+# Заполняем справочник типов багажников автомобилей
+print ' • справочник типов багажников автомобилей'
+seeds = TRUNK_TYPES.inject([]) do |arr,type|
+  print '.'
+  # объединить в один gsub не вышло, как экранировать '/' есть идеи?
+  code = type.downcase.gsub('/', '').gsub(/(\W)[аеёийоуъыьэюя-]/, '\1')[0..2]
+  arr << {
+    code: code,
+    name: type,
+    note: type.capitalize
+  } if TrunkType.find_by_code(code).blank?
+end
+trunk_types = seeds.blank? ? TrunkType.all : TrunkType.create!(seeds)
+puts
+
 # Заполняем справочник типов тарифных планов
 print ' • справочник типов тарифных планов'
 seeds = RENTAL_TYPES.inject([]) do |arr,type|
@@ -121,6 +138,7 @@ if Rails.env.development?
   RangeRate.destroy_all
   RentalRate.destroy_all
 
+  Trunk.destroy_all
   Model.destroy_all
   Manufacture.destroy_all
   Brand.destroy_all
@@ -243,11 +261,37 @@ if Rails.env.development?
       fuel_type: Faker::Vehicle.fuel_type,
       engine: Faker::Vehicle.engine,
       engine_volume: rand(10..50).to_f / 10,
+      specs: Faker::Vehicle.standard_specs,
       options: Faker::Vehicle.car_options,
       note: Faker::Company.catch_phrase
     }
   end
   models = Model.create! seeds
+  puts
+
+  # Заполняем справочник багажников автомобилей
+  print ' • справочник багажников автомобилей'
+  seeds = models.map do |model|
+    rand(1..(trunk_types.size / 2)).times.inject([]) do |arr|
+      print '.'
+      type = nil
+      # выбираем еще неиспользованный тип
+      begin
+        type = trunk_types.sample
+      end while (arr.any? { |a| a[:trunk_type] == type })
+      trunk = "#{model.name}(#{type.name})"
+      arr << {
+        code: "#{model.code}-#{type.code}",
+        name: trunk,
+        model: model,
+        trunk_type: type,
+        price: nil,
+        note: trunk
+      }
+      # arr.tap { |a| ap a }
+    end
+  end
+  trunks = Trunk.create! seeds.flatten
   puts
 
   # Заполняем справочник коэффициентов тарифных планов
@@ -261,9 +305,9 @@ if Rails.env.development?
         name: rate_name,
         model: model,
         rental_type: type,
-        workweek_rate: rand(5..15).to_f / 10,
-        weekend_rate: rand(5..15).to_f / 10,
-        hour_rate: rand(5..15).to_f / 10,
+        workweek: rand(5..15).to_f / 10,
+        weekend: rand(5..15).to_f / 10,
+        hour: rand(5..15).to_f / 10,
         note: rate_name
       }
     end
@@ -297,8 +341,8 @@ if Rails.env.development?
     # Money принимает значение в копейках (ну не дурость?)
     # day_price = Money.new(rand(20..30) * 100 * 100)
     # km_price = Money.new(rand(50..100) / 10 * 100)
-    day_price = rand(20..30) * 100
-    km_price = rand(50..100) / 10
+    day = rand(20..30) * 100
+    km = rand(50..100) / 10
     print '.'
     {
       code: "#{model.code}-#{model.model_class.code}",
@@ -313,18 +357,44 @@ if Rails.env.development?
       # weekend_price: (day_price * 2 * 1.5).to_f,
       # workweek_price: (day_price * 4).to_f,
       # workday_price: (day_price * 0.9).to_f,
-      day_price: day_price,
-      forfeit_price: day_price * 1.5,
-      earnest: day_price * 3,
-      km_price: km_price,
-      km_over_price: km_price * 1.5,
-      weekend_price: day_price * 2 * 1.5,
-      workweek_price: day_price * 4,
-      workday_price: day_price * 0.9,
+      day: day,
+      forfeit: day * 1.5,
+      earnest: day * 3,
+      km: km,
+      km_over: km * 1.5,
+      weekend: day * 2 * 1.5,
+      workweek: day * 4,
+      workday: day * 0.9,
       note: price_name
     }
   end
   rental_prices = RentalPrice.create! seeds
   puts
+
+  # Заполняем справочник автомобилей
+  print ' • справочник автомобилей'
+  seeds = MAX_SEEDS.times.map do
+    print '.'
+    model = models.sample
+    vin = Faker::Vehicle.vin
+    {
+      code: "#{model.code}-#{vin}",
+      name: "#{model.name}(#{vin})",
+      model: model,
+      garage_no: vin,
+      state_no: vin,
+      vin: vin,
+      release: Date.new(Faker::Vehicle.year.to_i),
+      mileage: Faker::Vehicle.mileage,
+      color: Faker::Vehicle.color,
+      specs: Faker::Vehicle.standard_specs,
+      options: Faker::Vehicle.car_options,
+      trunk: trunks.select { |t| t.model == model }.sample,
+      note: Faker::Company.catch_phrase
+    }
+  end
+  vehicles = Vehicle.create! seeds
+  puts
+
 
 end

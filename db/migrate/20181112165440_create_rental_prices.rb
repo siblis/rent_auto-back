@@ -6,14 +6,14 @@ class CreateRentalPrices < ActiveRecord::Migration[5.2]
       t.string :name
       t.references :model, foreign_key: true
       t.references :model_class, foreign_key: true
-      t.decimal :day_price
-      t.decimal :forfeit_price
+      t.decimal :day
+      t.decimal :forfeit
       t.decimal :earnest
-      t.decimal :km_price
-      t.decimal :km_over_price
-      t.decimal :weekend_price
-      t.decimal :workweek_price
-      t.decimal :workday_price
+      t.decimal :km
+      t.decimal :km_over
+      t.decimal :weekend
+      t.decimal :workweek
+      t.decimal :workday
       t.text :note
 
       t.timestamps

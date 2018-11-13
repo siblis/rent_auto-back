@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_170127) do
+ActiveRecord::Schema.define(version: 2018_11_13_113339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2018_11_12_170127) do
     t.string "fuel_type"
     t.string "engine"
     t.float "engine_volume"
+    t.string "specs", array: true
     t.string "options", array: true
     t.text "note"
     t.datetime "created_at", null: false
@@ -159,14 +160,14 @@ ActiveRecord::Schema.define(version: 2018_11_12_170127) do
     t.string "name"
     t.bigint "model_id"
     t.bigint "model_class_id"
-    t.decimal "day_price"
-    t.decimal "forfeit_price"
+    t.decimal "day"
+    t.decimal "forfeit"
     t.decimal "earnest"
-    t.decimal "km_price"
-    t.decimal "km_over_price"
-    t.decimal "weekend_price"
-    t.decimal "workweek_price"
-    t.decimal "workday_price"
+    t.decimal "km"
+    t.decimal "km_over"
+    t.decimal "weekend"
+    t.decimal "workweek"
+    t.decimal "workday"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -179,9 +180,9 @@ ActiveRecord::Schema.define(version: 2018_11_12_170127) do
     t.string "name"
     t.bigint "model_id"
     t.bigint "rental_type_id"
-    t.float "workweek_rate"
-    t.float "weekend_rate"
-    t.float "hour_rate"
+    t.float "workweek"
+    t.float "weekend"
+    t.float "hour"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -215,7 +216,7 @@ ActiveRecord::Schema.define(version: 2018_11_12_170127) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "trunk_types", comment: "Справочник типов багажников", force: :cascade do |t|
+  create_table "trunk_types", comment: "Справочник типов багажников автомобилей", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.text "note"
@@ -223,16 +224,38 @@ ActiveRecord::Schema.define(version: 2018_11_12_170127) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "trunks", comment: "Справочник багажников", force: :cascade do |t|
+  create_table "trunks", comment: "Справочник багажников автомобилей", force: :cascade do |t|
     t.string "code"
     t.string "name"
-    t.bigint "trunk_type_id"
     t.bigint "model_id"
+    t.bigint "trunk_type_id"
+    t.decimal "price"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["model_id"], name: "index_trunks_on_model_id"
     t.index ["trunk_type_id"], name: "index_trunks_on_trunk_type_id"
+  end
+
+  create_table "vehicles", comment: "Справочник автомобилей", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "model_id"
+    t.boolean "active", default: true
+    t.string "garage_no"
+    t.string "state_no"
+    t.string "vin"
+    t.date "release"
+    t.integer "mileage"
+    t.string "color"
+    t.string "specs", array: true
+    t.string "options", array: true
+    t.bigint "trunk_id"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_vehicles_on_model_id"
+    t.index ["trunk_id"], name: "index_vehicles_on_trunk_id"
   end
 
   add_foreign_key "localities", "countries"
@@ -260,4 +283,6 @@ ActiveRecord::Schema.define(version: 2018_11_12_170127) do
   add_foreign_key "states", "countries"
   add_foreign_key "trunks", "models"
   add_foreign_key "trunks", "trunk_types"
+  add_foreign_key "vehicles", "models"
+  add_foreign_key "vehicles", "trunks"
 end

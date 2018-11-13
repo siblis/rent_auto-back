@@ -6,9 +6,9 @@ class CreateRentalRates < ActiveRecord::Migration[5.2]
       t.string :name
       t.references :model, foreign_key: true
       t.references :rental_type, foreign_key: true
-      t.float :workweek_rate
-      t.float :weekend_rate
-      t.float :hour_rate
+      t.float :workweek
+      t.float :weekend
+      t.float :hour
       t.text :note
 
       t.timestamps
