@@ -1,5 +1,6 @@
+# app/controllers/countries_controller.rb
 class CountriesController < ApplicationController
-  before_action :set_country, only: [:show, :update, :destroy]
+  before_action :set_country, only: %i[show update destroy]
 
   # GET /countries
   def index
@@ -39,13 +40,14 @@ class CountriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_country
-      @country = Country.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def country_params
-      params.require(:country).permit(:code, :name, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_country
+    @country = Country.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def country_params
+    params.require(:country).permit(:code, :name, :note)
+  end
 end

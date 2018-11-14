@@ -1,5 +1,6 @@
+# app/controllers/regions_controller.rb
 class RegionsController < ApplicationController
-  before_action :set_region, only: [:show, :update, :destroy]
+  before_action :set_region, only: %i[show update destroy]
 
   # GET /regions
   def index
@@ -39,13 +40,14 @@ class RegionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_region
-      @region = Region.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def region_params
-      params.require(:region).permit(:code, :name, :state_id, :country_id, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_region
+    @region = Region.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def region_params
+    params.require(:region).permit(:code, :name, :state_id, :country_id, :note)
+  end
 end

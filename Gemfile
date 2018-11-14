@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -11,6 +9,14 @@ gem 'rails', '~> 5.2.1'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+
+# Ruby Internationalization and localization solution.
+gem 'i18n'
+gem 'rails-i18n'
+
+# This library provides integration of the money gem with Rails.
+gem 'money'
+gem 'money-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
@@ -30,7 +36,7 @@ gem 'active_model_serializers', '~> 0.10.8'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem 'rack-cors', '~> 1.0', '>= 1.0.2', :require => 'rack/cors'
+gem 'rack-cors', '~> 1.0', '>= 1.0.2', require: 'rack/cors'
 
 # Autoload dotenv in Rails.
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'

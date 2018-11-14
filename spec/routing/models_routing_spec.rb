@@ -10,7 +10,6 @@ RSpec.describe ModelsController, type: :routing do
       expect(:get => "/models/1").to route_to("models#show", :id => "1")
     end
 
-
     it "routes to #create" do
       expect(:post => "/models").to route_to("models#create")
     end

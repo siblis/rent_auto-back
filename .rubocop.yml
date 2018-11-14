@@ -1,16 +1,57 @@
 Rails:
   Enabled: true
 
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-# 80 как то мало.
+AllCops:
+  TargetRubyVersion: 2.5.3
+  Exclude:
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'spec/**/*'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/**/*'
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+# 80 маловото
 Metrics/LineLength:
   Max: 132
 
-# Пока не знаю что с этим делать и стоит ли.
-Style/MixinUsage:
+# Сам знаю что не используются :)
+Lint/UselessAssignment:
   Exclude:
-  - 'bin/setup'
-  - 'bin/update'
+    - 'db/**/*'
+
+Performance/TimesMap:
+  Exclude:
+    - 'db/**/*'
+
+Rails/FilePath:
+  Exclude:
+    - 'config/puma.rb'
+
+# Не нужен logger в тасках
+Rails/Output:
+  Exclude:
+    - 'db/seeds.rb'
+
+# С чего это вдруг только ascii
+Style/AsciiComments:
+  Enabled: false
+
+# Пока незачем
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# Сгенерированно как есть
+Style/NumericLiterals:
+  Exclude:
+    - 'db/schema.rb'
 
 inherit_from: .rubocop_todo.yml

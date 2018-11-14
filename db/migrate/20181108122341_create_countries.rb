@@ -1,6 +1,7 @@
+# db/migrate/20181108122341_create_countries.rb
 class CreateCountries < ActiveRecord::Migration[5.2]
   def change
-    create_table :countries do |t|
+    create_table :countries, comment: 'Справочник стран' do |t|
       t.string :code
       t.string :name
       t.text :note

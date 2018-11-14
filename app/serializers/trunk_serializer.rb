@@ -1,5 +1,6 @@
+# app/serializers/trunk_serializer.rb
 class TrunkSerializer < ActiveModel::Serializer
-  attributes :id, :code, :name, :note
-  has_one :trunk_type
+  attributes :id, :code, :name, :price, :note
   has_one :model
+  has_one :trunk_type
 end

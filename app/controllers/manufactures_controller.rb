@@ -1,5 +1,6 @@
+# app/controllers/manufactures_controller.rb
 class ManufacturesController < ApplicationController
-  before_action :set_manufacture, only: [:show, :update, :destroy]
+  before_action :set_manufacture, only: %i[show update destroy]
 
   # GET /manufactures
   def index
@@ -39,13 +40,14 @@ class ManufacturesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_manufacture
-      @manufacture = Manufacture.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def manufacture_params
-      params.require(:manufacture).permit(:code, :name, :brand_id, :country_id, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_manufacture
+    @manufacture = Manufacture.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def manufacture_params
+    params.require(:manufacture).permit(:code, :name, :brand_id, :country_id, :note)
+  end
 end

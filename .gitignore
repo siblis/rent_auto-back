@@ -10,6 +10,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore rubocop auto-gen-config
+.rubocop_todo.yml
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

@@ -10,7 +10,6 @@ RSpec.describe BodyTypesController, type: :routing do
       expect(:get => "/body_types/1").to route_to("body_types#show", :id => "1")
     end
 
-
     it "routes to #create" do
       expect(:post => "/body_types").to route_to("body_types#create")
     end

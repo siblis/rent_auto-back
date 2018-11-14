@@ -10,7 +10,6 @@ RSpec.describe TrunkTypesController, type: :routing do
       expect(:get => "/trunk_types/1").to route_to("trunk_types#show", :id => "1")
     end
 
-
     it "routes to #create" do
       expect(:post => "/trunk_types").to route_to("trunk_types#create")
     end

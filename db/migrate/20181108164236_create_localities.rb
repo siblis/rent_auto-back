@@ -1,6 +1,7 @@
+# db/migrate/20181108164236_create_localities.rb
 class CreateLocalities < ActiveRecord::Migration[5.2]
   def change
-    create_table :localities do |t|
+    create_table :localities, comment: 'Справочник населенных пунктов' do |t|
       t.string :code
       t.string :name
       t.references :status, foreign_key: true
