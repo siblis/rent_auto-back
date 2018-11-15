@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# app/application_mailer.rb
 # ApplicationMailer
 class ApplicationMailer < ActionMailer::Base
   default from: 'from@example.com'
