@@ -57,6 +57,8 @@ group :development, :test do
   # gem 'faker-russian'
   # Great Ruby dubugging companion: pretty print Ruby objects to visualize their structure.
   gem 'awesome_print'
+  # для локального чтения писем вместо отправки
+  gem 'letter_opener'
 end
 
 group :development do

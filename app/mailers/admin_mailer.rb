@@ -2,6 +2,6 @@
 class AdminMailer < ApplicationMailer
   def request_email
     @parameters = params[:parameters]
-    mail(to: 'rentauto.gb@mail.ru', subject: 'Новый заказ с сайта rent-auto.biz.tm')
+    mail(to: ENV['ADMIN_EMAIL'], subject: I18n.t('mailer.subjects.request'))
   end
 end
