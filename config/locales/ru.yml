@@ -270,4 +270,6 @@ ru:
 
   mailer:
     subjects:
-      request: "Новый заказ с сайта rent-auto.biz.tm"
+      request:
+        new: "Новый заказ с сайта rent-auto.biz.tm"
+        got-it: "Ваш заказ на сайте rent-auto.biz.tm"
