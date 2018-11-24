@@ -51,15 +51,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.mail.ru',
-    port: 587,
-    domain: 'mail.ru',
-    user_name: 'rentauto.gb@mail.ru',
-    password: ENV['MAILRU_PASSWORD'],
-    authentication: 'plain',
-    enable_starttls_auto: true
-  }
-  config.action_mailer.default_options = { from: 'rentauto.gb@mail.ru' }
+  # для реальной отсылки почты надо закомментить letter_opener и раскомментить smtp
+  config.action_mailer.delivery_method = :letter_opener
+  # config.action_mailer.delivery_method = :smtp
 end

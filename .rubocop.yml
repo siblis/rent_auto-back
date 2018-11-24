@@ -20,8 +20,9 @@ Metrics/MethodLength:
   Enabled: false
 
 # 80 маловато
+# OB: 120 - рекомендация IS к pull-req #5
 Metrics/LineLength:
-  Max: 132
+  Max: 120
 
 # Сам знаю что не используются :)
 Lint/UselessAssignment:
